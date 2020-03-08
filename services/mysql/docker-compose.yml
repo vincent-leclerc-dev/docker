@@ -1,0 +1,29 @@
+version: '2'
+
+services:
+    db:
+      image: mysql
+      environment:
+                - MYSQL_DATABASE=vldb
+                - MYSQL_USER=vleclerc
+                - MYSQL_PASSWORD=xxxxxxx
+                - MYSQL_ROOT_PASSWORD=xxxx
+      volumes:
+            - $HOME/docker/volumes/mysql/db:/var/lib/mysql
+      ports:
+            - "3306:3306"
+    phpmyadmin:
+     image: phpmyadmin/phpmyadmin
+     environment:
+            PMA_ARBITRARY: 1
+            MYSQL_USER: vleclerc
+            MYSQL_PASSWORD: xxxxxxxx
+            MYSQL_ROOT_PASSWORD: xxxx
+     ports:
+            - "80:80"
+     links:
+            # for mysql container
+            - "db:db"
+volumes:
+    db:
+        driver: "local"
